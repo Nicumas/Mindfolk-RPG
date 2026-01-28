@@ -1,0 +1,91 @@
+{
+  "guard": {
+    "name": "Guard",
+    "answer": "Стой. Назови цель своего визита.",
+    "action": "talk",
+    "coins": 0,
+    "emotion": "calm",
+    "trust": 40,
+    "aggression": 30,
+    "relationship": "neutral",
+    "memory_note": "Видит игрока впервые",
+    "next_state": "observe_player",
+    "player_position": null,
+    "npc_position": null,
+    "quest": {
+      "id": "guard_001",
+      "title": "Очистить ворота",
+      "goal": "Уничтожить бандитов у северного входа",
+      "reward_coins": 15
+    }
+  },
+
+  "merchant": {
+    "name": "Merchant",
+    "answer": "Посмотри мой товар, цены честные.",
+    "action": "trade",
+    "coins": 0,
+    "emotion": "happy",
+    "trust": 70,
+    "aggression": 5,
+    "relationship": "friendly",
+    "memory_note": "Игрок ранее торговал",
+    "next_state": "trade_mode",
+    "player_position": null,
+    "npc_position": null,
+    "quest": null
+  },
+
+  "bandit": {
+    "name": "Bandit",
+    "answer": "Кошелёк на землю. Быстро.",
+    "action": "attack",
+    "coins": 0,
+    "emotion": "angry",
+    "trust": 0,
+    "aggression": 95,
+    "relationship": "hostile",
+    "memory_note": "Считает игрока лёгкой добычей",
+    "next_state": "combat",
+    "player_position": null,
+    "npc_position": null,
+    "quest": null
+  },
+
+  "villager": {
+    "name": "Villager",
+    "answer": "Пожалуйста… если можешь, помоги нам.",
+    "action": "give_coins",
+    "coins": 3,
+    "emotion": "sad",
+    "trust": 60,
+    "aggression": 0,
+    "relationship": "friendly",
+    "memory_note": "Боится за свою деревню",
+    "next_state": "return_home",
+    "player_position": null,
+    "npc_position": null,
+    "quest": null
+  },
+
+  "scientist": {
+    "name": "Scientist",
+    "answer": "Мне срочно нужна помощь с экспериментом.",
+    "action": "give_quest",
+    "coins": 0,
+    "emotion": "happy",
+    "trust": 80,
+    "aggression": 0,
+    "relationship": "friendly",
+    "memory_note": "Игрок кажется надёжным",
+    "next_state": "wait_for_results",
+    "player_position": null,
+    "npc_position": null,
+    "quest": {
+      "id": "sci_002",
+      "title": "Потерянный модуль",
+      "goal": "Найти исследовательский модуль в руинах",
+      "reward_coins": 30
+    }
+  }
+}

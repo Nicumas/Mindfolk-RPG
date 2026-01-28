@@ -1,6 +1,7 @@
 import arcade
 from entities.npc import NPC
 
+
 class Meadow:
     def __init__(self, player):
         self.player = player
@@ -10,8 +11,10 @@ class Meadow:
         self.player_list.append(player)
 
         self.npc_list = arcade.SpriteList()
+        self.interacting_NPC = None
+        self.chatting_NPC = None
         self.npc_list.append(
-            NPC(500, 300, "Bob", "Привет! Рад видеть тебя.")
+            NPC(500, 300, "villager")
         )
 
         self.setup()
@@ -31,8 +34,23 @@ class Meadow:
 
         if keys.get(arcade.key.E):
             for npc in self.npc_list:
-                if npc.player_near(self.player):
+                if npc.player_near(self.player) and self.interacting_NPC is None or self.chatting_NPC == npc:
+                    npc.update_text("...думает...")
                     self.active_text = f"{npc.name}: {npc.text}"
+                    npc.update_answer_async(self.player.get_position())
+                    print(f"[Meadow] Взаимодействие с NPC '{npc.name}'")
+                    self.interacting_NPC = npc
+                    break
+
+        for npc in self.npc_list:
+            if npc.player_near(self.player):
+                if npc.answer_has_been_read == False:
+                    self.active_text = f"{npc.name}: {npc.get_text()}"
+                    break
+            else:
+                if self.interacting_NPC == npc:
+                    self.active_text = None
+                    self.interacting_NPC = None
 
     def draw_world(self):
         self.terra_list.draw()

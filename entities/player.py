@@ -16,3 +16,6 @@ class Player(arcade.SpriteSolidColor):
             self.center_x -= self.speed * dt
         if keys.get(arcade.key.D):
             self.center_x += self.speed * dt
+
+    def get_position(self):
+        return (self.center_x, self.center_y)
