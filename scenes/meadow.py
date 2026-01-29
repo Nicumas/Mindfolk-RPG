@@ -71,3 +71,6 @@ class Meadow:
                 16,
                 width=720
             )
+
+    def chat_with_npc(self, npc, message):
+        pass
