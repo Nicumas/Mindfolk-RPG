@@ -31,9 +31,9 @@ class Player(arcade.Sprite):
             TEXTURES_DIR / "walk_left.png"
         )
 
-        #self.walk_up_left = arcade.load_texture(
-        #    TEXTURES_DIR / "walk_up_left.png"
-        #)
+        self.walk_up_left = arcade.load_texture(
+            TEXTURES_DIR / "walk_up_left.png"
+        )
         self.walk_up_right = arcade.load_texture(
             TEXTURES_DIR / "walk_up_right.png"
         )
