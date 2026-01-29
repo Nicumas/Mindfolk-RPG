@@ -1,85 +1,123 @@
 import arcade
 import os
 
+
 class Player(arcade.Sprite):
     def __init__(self, x, y):
-        super().__init__()
+        # Базовый масштаб — для стоячих спрайтов
+        super().__init__(scale=0.5)
 
         self.center_x = x
         self.center_y = y
         self.speed = 200
 
-        # Списки для кадров анимации
-        self.idle_textures = [""]
-        self.walk_textures = []
+        BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+        folder = os.path.join(BASE_DIR, "textures")
 
-        # Текущее состояние
-        self.cur_texture = 0
-        self.facing_right = True
-        self.state = "idle"  # "idle" или "walk"
+        # --- Idle ---
+        self.stand_front = arcade.load_texture(
+            os.path.join(folder, "standing_object_front.png")
+        )
+        self.stand_back = arcade.load_texture(
+            os.path.join(folder, "standing_object_back.png")
+        )
 
-        # Загружаем текстуры
-        self.load_textures()
+        # --- Walk (увеличенные на 50%) ---
+        self.walk_right = arcade.load_texture(
+            os.path.join(folder, "walk_right.png")
+        )
+        self.walk_left = arcade.load_texture(
+            os.path.join(folder, "walk_left.png")
+        )
 
-        # Устанавливаем стартовую текстуру
-        self.texture = self.idle_textures[0]
+        self.walk_up_left = arcade.load_texture(
+            os.path.join(folder, "walk_up_left.png")
+        )
+        self.walk_up_right = arcade.load_texture(
+            os.path.join(folder, "walk_up_right.png")
+        )
 
-    def load_textures(self):
-        """Загрузка кадров анимации"""
-        # Папка с картинками
-        folder = "images/player"
+        self.walk_down_left = arcade.load_texture(
+            os.path.join(folder, "walk_down_left.png")
+        )
+        self.walk_down_right = arcade.load_texture(
+            os.path.join(folder, "walk_down_right.png")
+        )
 
-        # Загрузка idle кадров
-        for i in range(1, 3):  # допустим у тебя 2 кадра idle
-            texture = arcade.load_texture(os.path.join(folder, f"idle_{i}.png"))
-            self.idle_textures.append(texture)
+        self.walk_back_right = arcade.load_texture(
+            os.path.join(folder, "walk_back_right.png")
+        )
+        self.walk_forward_right = arcade.load_texture(
+            os.path.join(folder, "walk_forward_right.png")
+        )
 
-        # Загрузка walk кадров
-        for i in range(1, 5):  # допустим 4 кадра ходьбы
-            texture = arcade.load_texture(os.path.join(folder, f"walk_{i}.png"))
-            self.walk_textures.append(texture)
+        # Начальная текстура — idle
+        self.texture = self.stand_front
+        self.last_direction = "down"
+
+        # Масштабы для разных состояний
+        self.idle_scale = 0.5
+        self.walk_scale = 0.75
 
     def update(self, dt, keys):
         dx = dy = 0
+
         if keys.get(arcade.key.W):
             dy = self.speed * dt
         if keys.get(arcade.key.S):
             dy = -self.speed * dt
         if keys.get(arcade.key.A):
             dx = -self.speed * dt
-            self.facing_right = False
         if keys.get(arcade.key.D):
             dx = self.speed * dt
-            self.facing_right = True
 
         self.center_x += dx
         self.center_y += dy
 
-        # Определяем состояние
-        if dx != 0 or dy != 0:
-            self.state = "walk"
-        else:
-            self.state = "idle"
+        self.update_texture(dx, dy)
 
-        # Обновляем текстуру
-        self.update_animation(dt)
+    def update_texture(self, dx, dy):
+        # Стоим на месте
+        if dx == 0 and dy == 0:
+            self.scale = self.idle_scale
+            if self.last_direction == "up":
+                self.texture = self.stand_back
+            else:
+                self.texture = self.stand_front
+            return
 
-    def update_animation(self, dt):
-        if self.state == "idle":
-            textures = self.idle_textures
-        elif self.state == "walk":
-            textures = self.walk_textures
+        # Движение — увеличиваем масштаб
+        self.scale = self.walk_scale
 
-        # Меняем кадр каждые 0.15 секунд
-        self.cur_texture += 1
-        if self.cur_texture >= len(textures) * 6:  # 6 кадров = 0.15 сек при 60 fps
-            self.cur_texture = 0
+        # Диагонали
+        if dx > 0 and dy > 0:
+            self.texture = self.walk_up_right
+            self.last_direction = "up"
+        elif dx < 0 and dy > 0:
+            self.texture = self.walk_up_left
+            self.last_direction = "up"
+        elif dx > 0 and dy < 0:
+            self.texture = self.walk_down_right
+            self.last_direction = "down"
+        elif dx < 0 and dy < 0:
+            self.texture = self.walk_down_left
+            self.last_direction = "down"
 
-        frame = self.cur_texture // 6
-        texture = textures[frame]
+        # Горизонталь
+        elif dx > 0:
+            self.texture = self.walk_right
+            self.last_direction = "right"
+        elif dx < 0:
+            self.texture = self.walk_left
+            self.last_direction = "left"
 
-        # Поворачиваем текстуру если идём влево
-        if not self.facing_right:
-            texture = arcade.load_texture(texture.path, mirrored=True)
+        # Вертикаль
+        elif dy > 0:
+            self.texture = self.walk_back_right
+            self.last_direction = "up"
+        elif dy < 0:
+            self.texture = self.walk_forward_right
+            self.last_direction = "down"
 
-        self.texture = texture
+    def get_position(self):
+        return (self.center_x, self.center_y)
