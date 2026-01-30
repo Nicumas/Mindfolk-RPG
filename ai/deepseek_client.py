@@ -39,7 +39,7 @@ class DeepSeekClient:
         state["answer"] = npc_text
         print(f"[DeepSeekClient] Отправляемое состояние для NPC '{npc_name}': {state}")
         print(state["answer"])
-        result = self.send_state(state["answer"])
+        result = self.send_state(str(state))
         print(f"[DeepSeekClient] Ответ от сервера для NPC '{npc_name}': {result}")
         result = json.loads(result)
         print(f"[DeepSeekClient] Получен ответ от NPC '{npc_name}': {result}")

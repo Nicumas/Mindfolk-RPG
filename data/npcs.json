@@ -1,7 +1,7 @@
 {
   "guard": {
     "name": "Guard",
-    "answer": "Стой. Назови цель своего визита.",
+    "answer": "",
     "action": "talk",
     "coins": 0,
     "emotion": "calm",
@@ -22,7 +22,7 @@
 
   "merchant": {
     "name": "Merchant",
-    "answer": "Посмотри мой товар, цены честные.",
+    "answer": "",
     "action": "trade",
     "coins": 0,
     "emotion": "happy",
@@ -38,7 +38,7 @@
 
   "bandit": {
     "name": "Bandit",
-    "answer": "Кошелёк на землю. Быстро.",
+    "answer": "",
     "action": "attack",
     "coins": 0,
     "emotion": "angry",
@@ -54,7 +54,7 @@
 
   "villager": {
     "name": "Villager",
-    "answer": "Пожалуйста… если можешь, помоги нам.",
+    "answer": "",
     "action": "give_coins",
     "coins": 3,
     "emotion": "sad",
@@ -70,7 +70,7 @@
 
   "scientist": {
     "name": "Scientist",
-    "answer": "Мне срочно нужна помощь с экспериментом.",
+    "answer": "",
     "action": "give_quest",
     "coins": 0,
     "emotion": "happy",
