@@ -22,6 +22,7 @@ class NPC(arcade.SpriteSolidColor):
 
     def update_text(self, new_text):
         self.text = new_text
+        print(f"[NPC] Текст NPC '{self.name}' обновлён: {self.text}")
 
     def get_position(self):
         return (self.center_x, self.center_y)

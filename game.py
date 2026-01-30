@@ -78,10 +78,23 @@ class Game(arcade.Window):
         self.gui_camera.use()
         self.scene.draw_gui()
 
-
+    def on_text(self, text):
+        if self.player.chatting: 
+            self.scene.input_text += text
+            print(f"Текущий ввод: {self.scene.input_text}")
 
     def on_key_press(self, key, modifiers):
         self.keys[key] = True
+
+        if self.player.chatting and self.scene.interacting_NPC.get_text():
+            if key == arcade.key.BACKSPACE:
+                self.scene.input_text = self.scene.input_text[:-1]
+
+            elif key == arcade.key.ENTER:
+                if self.scene.input_text.strip():
+                    self.scene.interacting_NPC.update_text(self.scene.input_text)
+                    self.scene.interacting_NPC.update_answer_async(self.player.get_position())
+                self.scene.input_text = ""
 
     def on_key_release(self, key, modifiers):
         self.keys[key] = False
