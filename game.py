@@ -34,6 +34,14 @@ class Game(arcade.Window):
         self.world_width = self.scene.world_width
         self.world_height = self.scene.world_height
 
+        self.menu_music = arcade.load_sound("music/menu_theme.ogg")
+        self.game_music = arcade.load_sound("music/game_theme.ogg")
+
+        self.music_player = None
+
+        self.play_music(self.menu_music, volume=0.4)
+
+
     def on_update(self, dt):
         if self.state != "game":
             return
@@ -107,6 +115,24 @@ class Game(arcade.Window):
             align="center",
         )
 
+    def play_music(self, sound, volume=0.5):
+        if self.music_player:
+            self.music_player.pause()
+
+        self.music_player = sound.play(
+            volume=volume,
+            loop=True
+        )
+
+    def play_music(self, sound, volume=0.5):
+        if self.music_player:
+            self.music_player.pause()
+
+        self.music_player = sound.play(
+            volume=volume,
+            loop=True
+        )
+
     def on_text(self, text):
         if self.state != "game":
             return
@@ -120,9 +146,11 @@ class Game(arcade.Window):
         if self.state == "menu":
             if key == arcade.key.ENTER:
                 self.state = "game"
+                self.play_music(self.game_music, volume=0.5)
             elif key == arcade.key.ESCAPE:
                 arcade.close_window()
             return
+
 
         if self.player.chatting and self.scene.interacting_NPC.get_text():
             if key == arcade.key.BACKSPACE:
