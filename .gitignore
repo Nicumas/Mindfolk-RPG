@@ -1,2 +1,24 @@
 *.secret
 data/data.json
+# Ignore all log files
+*.log
+
+# Ignore all files ending in .temp
+*.temp
+
+# Ignore the 'build' directory and all its contents
+/build/
+
+# Ignore the 'temp' directory in any directory
+temp/
+
+# Ignore a specific file named 'config.json' in the root directory
+/config.json
+
+# Ignore all files in the 'docs' directory except 'important.md'
+docs/*
+!docs/important.md
+
+# Ignore OS-specific temporary files
+.DS_Store
+Thumbs.db

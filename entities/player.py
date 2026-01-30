@@ -55,13 +55,16 @@ class Player(arcade.Sprite):
         )
 
 
-        # Начальная текстура — idle
         self.texture = self.stand_front
         self.last_direction = "down"
 
-        # Масштабы для разных состояний
-        self.idle_scale = 0.5
+        # --- Масштабы ---
+        base_idle_scale = 0.5
+        self.idle_front_scale = base_idle_scale * 0.6   # -40%
+        self.idle_back_scale = base_idle_scale * 1.2    # +20%
+
         self.walk_scale = 0.75
+        self.walk_forward_scale = self.walk_scale * 0.6  # -40% только для walk_forward_right
 
     def update(self, dt, keys):
         if not self.chatting:
@@ -84,12 +87,14 @@ class Player(arcade.Sprite):
     def update_texture(self, dx, dy):
         # Стоим на месте
         if dx == 0 and dy == 0:
-            self.scale = self.idle_scale
             if self.last_direction == "up":
                 self.texture = self.stand_back
+                self.scale = self.idle_back_scale
             else:
                 self.texture = self.stand_front
+                self.scale = self.idle_front_scale
             return
+
 
         # Движение — увеличиваем масштаб
         self.scale = self.walk_scale
@@ -122,7 +127,10 @@ class Player(arcade.Sprite):
             self.last_direction = "up"
         elif dy < 0:
             self.texture = self.walk_forward_right
+            self.scale = self.walk_forward_scale
             self.last_direction = "down"
+
+        #self.scale = self.walk_scale
 
     def get_position(self):
         return (self.center_x, self.center_y)
