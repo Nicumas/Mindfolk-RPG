@@ -45,7 +45,6 @@ class NPC(arcade.SpriteSolidColor):
             npc_pos=self.get_position(),
             npc_text=self.get_text()
         )
-
         print(f"[NPC] Получен ответ от NPC '{self.name}': {response}")
         self.text = response["answer"]
         self.answer_has_been_read = False

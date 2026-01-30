@@ -32,6 +32,8 @@ class DeepSeekClient:
         if not state:
             print(f"[DeepSeekClient] NPC '{npc_name}' not found in JSON.")
             return "..."
+        if npc_text == "...думает...":
+            npc_text = "*К вам подошел игрок"
         state["player_position"] = player_pos
         state["npc_position"] = npc_pos
         state["answer"] = npc_text

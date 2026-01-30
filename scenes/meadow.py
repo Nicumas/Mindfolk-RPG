@@ -1,7 +1,9 @@
 import arcade
 from entities.npc import NPC
+import textwrap
 
 FONT_SIZE = 16
+MAX_LINES = 6  
 
 class Meadow:
     def __init__(self, player):
@@ -13,7 +15,6 @@ class Meadow:
 
         self.active_text_lines = []  # список строк текста NPC
         self.chat_scroll = 0         # индекс верхней видимой строки
-        MAX_LINES = 6  
 
         self.npc_list = arcade.SpriteList()
         self.interacting_NPC = None
@@ -49,12 +50,15 @@ class Meadow:
                     break
 
         for npc in self.npc_list:
-
-            # Пример прокрутки при нажатии стрелок
             if keys.get(arcade.key.UP):
                 self.scroll_chat(-1)
+                print(1111111)
             if keys.get(arcade.key.DOWN):
                 self.scroll_chat(1)
+                print(1111111)
+
+            if keys.get(arcade.key.ESCAPE):
+                self.hide_chat()
 
             if npc.player_near(self.player):
                 if npc.answer_has_been_read == False:
@@ -62,11 +66,7 @@ class Meadow:
                     self.interacting_NPC = npc
                     break
             else:
-                self.active_text = None
-                self.input_text = ""
-                self.player.chatting = False
-                if self.interacting_NPC == npc:
-                    self.interacting_NPC = None
+                self.hide_chat()
 
     def draw_world(self):
         self.terra_list.draw()
@@ -82,7 +82,7 @@ class Meadow:
                 arcade.color.BLACK
             )
             start_line = self.chat_scroll
-            end_line = start_line + self.MAX_LINES
+            end_line = start_line + MAX_LINES
             visible_lines = self.active_text_lines[start_line:end_line]
             for i, line in enumerate(visible_lines):
                 arcade.draw_text(
@@ -93,31 +93,50 @@ class Meadow:
                     width=720
                 )
 
-        # блок ввода
-        arcade.draw_lbwh_rectangle_filled(
-            20, 0,
-            760, 40,
-            arcade.color.DARK_GRAY
-        )
-        arcade.draw_text(
-            "> " + self.input_text,
-            30, 10, arcade.color.WHITE, FONT_SIZE
-        )
+            # блок ввода
+            arcade.draw_lbwh_rectangle_filled(
+                20, 0,
+                760, 40,
+                arcade.color.DARK_GRAY
+            )
+            if self.input_text == "" and self.interacting_NPC.answer_has_been_read == True:
+                arcade.draw_text(
+                    "> " + "Начните что то писать, ESC - чтобы выйти из чата.",
+                    30, 10, arcade.color.WHITE, FONT_SIZE
+                )
+            else:
+                arcade.draw_text(
+                    "> " + self.input_text,
+                    30, 10, arcade.color.WHITE, FONT_SIZE
+                )
 
     def on_text(self, text):
         if self.player.chatting:
             self.input_text += text
 
     def set_active_text(self, text):
-        self.active_text_lines = arcade.get_lines(text, FONT_SIZE, 720)
+        # приблизительно: сколько символов влезает в строку
+        chars_per_line = 70
+        self.active_text_lines = textwrap.wrap(text, chars_per_line)
         self.chat_scroll = 0
+
 
     def scroll_chat(self, direction):
         """ direction = 1 вниз, -1 вверх """
         if not self.active_text_lines:
             return
         self.chat_scroll += direction
-        self.chat_scroll = max(0, min(self.chat_scroll, len(self.active_text_lines) - self.MAX_LINES))
+        self.chat_scroll = max(0, min(self.chat_scroll, len(self.active_text_lines) - MAX_LINES))
+
+    def hide_chat(self):
+        if not self.interacting_NPC is None:
+            self.interacting_NPC.answer_has_been_read = False
+            self.interacting_NPC.update_text("*Нажмите E, чтобы поговорить")
+        self.active_text_lines = []
+        self.chat_scroll = 0
+        self.input_text = ""
+        self.player.chatting = False
+        self.interacting_NPC = None
 
     def chat_with_npc(self, npc, message):
         pass
