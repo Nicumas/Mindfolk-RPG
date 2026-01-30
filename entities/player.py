@@ -1,5 +1,6 @@
 import arcade
 import os
+from pathlib import Path
 
 
 class Player(arcade.Sprite):
@@ -10,47 +11,47 @@ class Player(arcade.Sprite):
         self.center_y = y
         self.speed = 200
 
-        BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-        folder = os.path.join(BASE_DIR, "textures")
+        BASE_DIR = Path(__file__).resolve().parent.parent
+        TEXTURES_DIR = BASE_DIR / "textures"
 
         # --- Idle ---
         self.stand_front = arcade.load_texture(
-            os.path.join(folder, "standing_object_front.png")
+            TEXTURES_DIR / "standing_object_front.png"
         )
         self.stand_back = arcade.load_texture(
-            os.path.join(folder, "standing_object_back.png")
+            TEXTURES_DIR / "standing_object_back.png"
         )
 
         # --- Walk ---
         self.walk_right = arcade.load_texture(
-            os.path.join(folder, "walk_right.png")
+            TEXTURES_DIR / "walk_right.png"
         )
         self.walk_left = arcade.load_texture(
-            os.path.join(folder, "walk_left.png")
+            TEXTURES_DIR / "walk_left.png"
         )
 
         self.walk_up_left = arcade.load_texture(
-            os.path.join(folder, "walk_up_left.png")
+            TEXTURES_DIR / "walk_up_left.png"
         )
         self.walk_up_right = arcade.load_texture(
-            os.path.join(folder, "walk_up_right.png")
+            TEXTURES_DIR / "walk_up_right.png"
         )
 
         self.walk_down_left = arcade.load_texture(
-            os.path.join(folder, "walk_down_left.png")
+            TEXTURES_DIR / "walk_down_left.png"
         )
         self.walk_down_right = arcade.load_texture(
-            os.path.join(folder, "walk_down_right.png")
+            TEXTURES_DIR / "walk_down_right.png"
         )
 
         self.walk_back_right = arcade.load_texture(
-            os.path.join(folder, "walk_back_right.png")
+            TEXTURES_DIR / "walk_back_right.png"
         )
         self.walk_forward_right = arcade.load_texture(
-            os.path.join(folder, "walk_forward_right.png")
+            TEXTURES_DIR / "walk_forward_right.png"
         )
 
-        # Начальная текстура
+
         self.texture = self.stand_front
         self.last_direction = "down"
 
