@@ -12,6 +12,8 @@ class Player(arcade.Sprite):
         self.center_y = y
         self.speed = 200
 
+        self.chatting = False
+
         BASE_DIR = Path(__file__).resolve().parent.parent
         TEXTURES_DIR = BASE_DIR / "textures"
 
@@ -62,21 +64,22 @@ class Player(arcade.Sprite):
         self.walk_scale = 0.75
 
     def update(self, dt, keys):
-        dx = dy = 0
+        if not self.chatting:
+            dx = dy = 0
 
-        if keys.get(arcade.key.W):
-            dy = self.speed * dt
-        if keys.get(arcade.key.S):
-            dy = -self.speed * dt
-        if keys.get(arcade.key.A):
-            dx = -self.speed * dt
-        if keys.get(arcade.key.D):
-            dx = self.speed * dt
+            if keys.get(arcade.key.W):
+                dy = self.speed * dt
+            if keys.get(arcade.key.S):
+                dy = -self.speed * dt
+            if keys.get(arcade.key.A):
+                dx = -self.speed * dt
+            if keys.get(arcade.key.D):
+                dx = self.speed * dt
 
-        self.center_x += dx
-        self.center_y += dy
+            self.center_x += dx
+            self.center_y += dy
 
-        self.update_texture(dx, dy)
+            self.update_texture(dx, dy)
 
     def update_texture(self, dx, dy):
         # Стоим на месте

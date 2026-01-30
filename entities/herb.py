@@ -31,6 +31,7 @@ class ChatWindow(arcade.Window):
 
     def on_text(self, text):
         self.input_text += text
+        print(f"Текущий ввод: {self.input_text}")
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.BACKSPACE:
@@ -39,6 +40,7 @@ class ChatWindow(arcade.Window):
         elif key == arcade.key.ENTER:
             if self.input_text.strip():
                 self.messages.append(self.input_text)
+                print(f"Новое сообщение: {self.input_text}")
             self.input_text = ""
 
 if __name__ == "__main__":

@@ -21,7 +21,7 @@ response = client.responses.create(
     prompt={
         "id": "fvttaahbt6cg539kq4k4",
     },
-    input="Привет",
+    input="",
 )
 
 
