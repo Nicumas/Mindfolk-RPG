@@ -4,7 +4,6 @@ import os
 
 class Player(arcade.Sprite):
     def __init__(self, x, y):
-        # Базовый масштаб — для стоячих спрайтов
         super().__init__(scale=0.5)
 
         self.center_x = x
@@ -22,7 +21,7 @@ class Player(arcade.Sprite):
             os.path.join(folder, "standing_object_back.png")
         )
 
-        # --- Walk (увеличенные на 50%) ---
+        # --- Walk ---
         self.walk_right = arcade.load_texture(
             os.path.join(folder, "walk_right.png")
         )
@@ -51,13 +50,17 @@ class Player(arcade.Sprite):
             os.path.join(folder, "walk_forward_right.png")
         )
 
-        # Начальная текстура — idle
+        # Начальная текстура
         self.texture = self.stand_front
         self.last_direction = "down"
 
-        # Масштабы для разных состояний
-        self.idle_scale = 0.5
+        # --- Масштабы ---
+        base_idle_scale = 0.5
+        self.idle_front_scale = base_idle_scale * 0.6   # -40%
+        self.idle_back_scale = base_idle_scale * 1.2    # +20%
+
         self.walk_scale = 0.75
+        self.walk_forward_scale = self.walk_scale * 0.6  # -40% только для walk_forward_right
 
     def update(self, dt, keys):
         dx = dy = 0
@@ -77,28 +80,33 @@ class Player(arcade.Sprite):
         self.update_texture(dx, dy)
 
     def update_texture(self, dx, dy):
-        # Стоим на месте
+
+        # --- Idle ---
         if dx == 0 and dy == 0:
-            self.scale = self.idle_scale
             if self.last_direction == "up":
                 self.texture = self.stand_back
+                self.scale = self.idle_back_scale
             else:
                 self.texture = self.stand_front
+                self.scale = self.idle_front_scale
             return
 
-        # Движение — увеличиваем масштаб
+        # --- Movement (по умолчанию) ---
         self.scale = self.walk_scale
 
         # Диагонали
         if dx > 0 and dy > 0:
             self.texture = self.walk_up_right
             self.last_direction = "up"
+
         elif dx < 0 and dy > 0:
             self.texture = self.walk_up_left
             self.last_direction = "up"
+
         elif dx > 0 and dy < 0:
             self.texture = self.walk_down_right
             self.last_direction = "down"
+
         elif dx < 0 and dy < 0:
             self.texture = self.walk_down_left
             self.last_direction = "down"
@@ -107,6 +115,7 @@ class Player(arcade.Sprite):
         elif dx > 0:
             self.texture = self.walk_right
             self.last_direction = "right"
+
         elif dx < 0:
             self.texture = self.walk_left
             self.last_direction = "left"
@@ -115,8 +124,10 @@ class Player(arcade.Sprite):
         elif dy > 0:
             self.texture = self.walk_back_right
             self.last_direction = "up"
+
         elif dy < 0:
             self.texture = self.walk_forward_right
+            self.scale = self.walk_forward_scale  # индивидуальный масштаб
             self.last_direction = "down"
 
     def get_position(self):
