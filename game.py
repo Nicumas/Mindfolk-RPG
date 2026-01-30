@@ -92,6 +92,8 @@ class Game(arcade.Window):
 
             elif key == arcade.key.ENTER:
                 if self.scene.input_text.strip():
+                    self.scene.interacting_NPC.update_text("...думает...")
+                    self.scene.active_text = f"{self.scene.interacting_NPC.name}: {self.scene.interacting_NPC.text}"
                     self.scene.interacting_NPC.update_text(self.scene.input_text)
                     self.scene.interacting_NPC.update_answer_async(self.player.get_position())
                 self.scene.input_text = ""
