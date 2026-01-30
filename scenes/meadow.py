@@ -13,8 +13,8 @@ class Meadow:
         self.player_list = arcade.SpriteList()
         self.player_list.append(player)
 
-        self.active_text_lines = []  # список строк текста NPC
-        self.chat_scroll = 0         # индекс верхней видимой строки
+        self.active_text_lines = []
+        self.chat_scroll = 0 
 
         self.npc_list = arcade.SpriteList()
         self.interacting_NPC = None
@@ -84,11 +84,10 @@ class Meadow:
         self.player_list.draw()
 
     def draw_gui(self):
-        # блок текста NPC
         if self.active_text_lines:
             arcade.draw_lrbt_rectangle_filled(
                 20, 780,
-                30, 120,  # высота блока чата
+                30, 120, 
                 arcade.color.BLACK
             )
             start_line = self.chat_scroll
@@ -103,7 +102,6 @@ class Meadow:
                     width=720
                 )
 
-            # блок ввода
             arcade.draw_lbwh_rectangle_filled(
                 20, 0,
                 760, 40,
@@ -125,14 +123,12 @@ class Meadow:
             self.input_text += text
 
     def set_active_text(self, text):
-        # приблизительно: сколько символов влезает в строку
         chars_per_line = 70
         self.active_text_lines = textwrap.wrap(text, chars_per_line)
         self.chat_scroll = 0
 
 
     def scroll_chat(self, direction):
-        """ direction = 1 вниз, -1 вверх """
         if not self.active_text_lines:
             return
         self.chat_scroll += direction

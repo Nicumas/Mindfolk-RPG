@@ -16,7 +16,6 @@ class Player(arcade.Sprite):
         BASE_DIR = Path(__file__).resolve().parent.parent
         TEXTURES_DIR = BASE_DIR / "textures"
 
-        # --- Idle ---
         self.stand_front = arcade.load_texture(
             TEXTURES_DIR / "standing_object_front.png"
         )
@@ -24,7 +23,6 @@ class Player(arcade.Sprite):
             TEXTURES_DIR / "standing_object_back.png"
         )
 
-        # --- Walk ---
         self.walk_right = arcade.load_texture(
             TEXTURES_DIR / "walk_right.png"
         )
@@ -58,13 +56,12 @@ class Player(arcade.Sprite):
 
         self.last_direction = "down"
 
-        # --- Масштабы ---
         base_idle_scale = 0.5
-        self.idle_front_scale = base_idle_scale * 0.6   # -40%
-        self.idle_back_scale = base_idle_scale * 1.2    # +20%
+        self.idle_front_scale = base_idle_scale * 0.6
+        self.idle_back_scale = base_idle_scale * 1.2
 
         self.walk_scale = 0.75
-        self.walk_forward_scale = self.walk_scale * 0.6  # -40% только для walk_forward_right
+        self.walk_forward_scale = self.walk_scale * 0.6
 
         self.hit_box_points = [
             (-10, 0),
@@ -98,7 +95,6 @@ class Player(arcade.Sprite):
 
 
     def update_texture(self, dx, dy):
-        # Стоим на месте
         if dx == 0 and dy == 0:
             if self.last_direction == "up":
                 self.texture = self.stand_back
@@ -109,10 +105,8 @@ class Player(arcade.Sprite):
             return
 
 
-        # Движение — увеличиваем масштаб
         self.scale = self.walk_scale
 
-        # Диагонали
         if dx > 0 and dy > 0:
             self.texture = self.walk_up_right
             self.last_direction = "up"
@@ -126,7 +120,6 @@ class Player(arcade.Sprite):
             self.texture = self.walk_down_left
             self.last_direction = "down"
 
-        # Горизонталь
         elif dx > 0:
             self.texture = self.walk_right
             self.last_direction = "right"
@@ -134,7 +127,6 @@ class Player(arcade.Sprite):
             self.texture = self.walk_left
             self.last_direction = "left"
 
-        # Вертикаль
         elif dy > 0:
             self.texture = self.walk_back_right
             self.last_direction = "up"
