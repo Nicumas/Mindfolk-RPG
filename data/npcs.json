@@ -55,7 +55,7 @@
   "villager": {
     "name": "Villager",
     "answer": "",
-    "action": "give_coins",
+    "action": "",
     "coins": 3,
     "emotion": "sad",
     "trust": 60,
