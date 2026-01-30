@@ -5,7 +5,6 @@ from pathlib import Path
 
 class Player(arcade.Sprite):
     def __init__(self, x, y):
-        # Базовый масштаб — для стоячих спрайтов
         super().__init__(scale=0.5)
 
         self.center_x = x
@@ -56,6 +55,7 @@ class Player(arcade.Sprite):
 
 
         self.texture = self.stand_front
+
         self.last_direction = "down"
 
         # --- Масштабы ---
@@ -65,6 +65,14 @@ class Player(arcade.Sprite):
 
         self.walk_scale = 0.75
         self.walk_forward_scale = self.walk_scale * 0.6  # -40% только для walk_forward_right
+
+        self.hit_box_points = [
+            (-10, 0),
+            (10, 0),
+            (10, 30),
+            (-10, 30),
+        ]
+
 
     def update(self, dt, keys):
         if not self.chatting:
@@ -79,10 +87,15 @@ class Player(arcade.Sprite):
             if keys.get(arcade.key.D):
                 dx = self.speed * dt
 
-            self.center_x += dx
-            self.center_y += dy
+            self.change_x = dx
+            self.change_y = dy
+
 
             self.update_texture(dx, dy)
+        else:    
+            self.change_x = 0
+            self.change_y = 0
+
 
     def update_texture(self, dx, dy):
         # Стоим на месте

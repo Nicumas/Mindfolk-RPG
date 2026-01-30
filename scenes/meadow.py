@@ -22,6 +22,9 @@ class Meadow:
         self.npc_list.append(
             NPC(500, 300, "villager")
         )
+        #self.npc_list.append(
+        #    NPC(500, 400, "Guard")
+        #)
 
         self.setup()
 
@@ -35,8 +38,14 @@ class Meadow:
         self.terra_list = tile_map.sprite_lists["terra"]
         self.collision_list = tile_map.sprite_lists["collision"]
 
+        self.physics_engine = arcade.PhysicsEngineSimple(
+            self.player,
+            self.collision_list
+        )
+
     def update(self, dt, keys):
         self.player.update(dt, keys)
+        self.physics_engine.update()
 
         if keys.get(arcade.key.E):
             for npc in self.npc_list:
@@ -46,6 +55,7 @@ class Meadow:
                     npc.update_answer_async(self.player.get_position())
                     print(f"[Meadow] Взаимодействие с NPC '{npc.name}'")
                     self.interacting_NPC = npc
+                    
                     self.player.chatting = True
                     break
 
