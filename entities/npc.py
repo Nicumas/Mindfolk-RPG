@@ -29,7 +29,9 @@ class NPC(arcade.Sprite):
         # --- Создаём пустой Sprite и присваиваем текстуру отдельно ---
         super().__init__()  # пустой конструктор
         self.texture = texture
-        self.scale = scale
+
+        # --- Масштаб уменьшаем на 30% ---
+        self.scale = scale * 0.8
 
         # --- Позиция NPC ---
         self.center_x = x
