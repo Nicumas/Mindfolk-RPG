@@ -55,11 +55,14 @@ class Meadow:
                     npc.update_answer_async(self.player.get_position())
                     print(f"[Meadow] Взаимодействие с NPC '{npc.name}'")
                     self.interacting_NPC = npc
+                    self.player.coins = npc.get_coins()
                     
                     self.player.chatting = True
                     break
 
         for npc in self.npc_list:
+            self.player.coins = npc.get_coins()
+            
             if keys.get(arcade.key.UP):
                 self.scroll_chat(-1)
                 print(1111111)
@@ -84,6 +87,20 @@ class Meadow:
         self.player_list.draw()
 
     def draw_gui(self):
+        arcade.draw_lbwh_rectangle_filled(
+            600, 540,
+            200, 40,
+            arcade.color.BLACK
+        )
+
+        arcade.draw_text(
+            f"Монеты: {self.player.coins}",
+            650, 550,
+            arcade.color.GOLD,
+            18,
+            bold=True
+        )
+
         if self.active_text_lines:
             arcade.draw_lrbt_rectangle_filled(
                 20, 780,

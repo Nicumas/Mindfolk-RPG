@@ -11,6 +11,8 @@ class Player(arcade.Sprite):
         self.center_y = y
         self.speed = 200
 
+        self.coins = 0
+
         self.chatting = False
 
         BASE_DIR = Path(__file__).resolve().parent.parent

@@ -3,18 +3,35 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "layer1.tmx",
     "expandedProjectPaths": [
+        "."
     ],
     "file.lastUsedOpenFilter": "Все файлы (*)",
     "fileStates": {
+        "Layer 1.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "layer1.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 1498.4848484848485,
+                "y": 1504.5454545454547
+            }
+        }
     },
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 128,
     "map.tileWidth": 128,
     "openFiles": [
+        "Layer 1.tsx",
+        "layer1.tmx"
     ],
     "project": "layers.tiled-project",
     "recentFiles": [
+        "Layer 1.tsx",
+        "layer1.tmx"
     ]
 }

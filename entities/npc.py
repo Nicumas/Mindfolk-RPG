@@ -3,6 +3,8 @@ import math
 import threading
 from pathlib import Path
 
+
+
 from ai.deepseek_client import DeepSeekClient
 
 
@@ -15,7 +17,6 @@ class NPC(arcade.Sprite):
         text: str = "*Нажмите E, чтобы поговорить",
         scale: float = 1.0
     ):
-        # --- Путь к текстурам ---
         BASE_DIR = Path(__file__).resolve().parent.parent
         TEXTURES_DIR = BASE_DIR / "textures"
 
@@ -23,30 +24,25 @@ class NPC(arcade.Sprite):
         if not texture_file.exists():
             raise FileNotFoundError(f"Не найден файл текстуры: {texture_file}")
 
-        # Загружаем текстуру через load_texture
         texture = arcade.load_texture(texture_file)
 
-        # --- Создаём пустой Sprite и присваиваем текстуру отдельно ---
-        super().__init__()  # пустой конструктор
+        super().__init__()
         self.texture = texture
 
-        # --- Масштаб уменьшаем на 30% ---
         self.scale = scale * 0.8
 
-        # --- Позиция NPC ---
         self.center_x = x
         self.center_y = y
 
-        # --- Данные NPC ---
+        self.coins = 0
+
         self.name = name
         self.text = text
         self.answer_has_been_read = False
         self.interact_distance = 80
 
-        # Можно хранить базовую текстуру для будущих смен (walk_left, walk_right и т.д.)
         self.stand_texture = texture
 
-    # ------------------------------------
     def player_near(self, player) -> bool:
         dx = self.center_x - player.center_x
         dy = self.center_y - player.center_y
@@ -61,6 +57,11 @@ class NPC(arcade.Sprite):
 
     def get_name(self):  
         return self.name
+    
+    def get_coins(self):
+        coins = self.coins
+        self.coins = 0
+        return coins
 
     def get_text(self):
         self.answer_has_been_read = True
@@ -85,6 +86,8 @@ class NPC(arcade.Sprite):
             )
             print(f"[NPC] Получен ответ от NPC '{self.name}': {response}")
             self.text = response["answer"]
+            self.coins = response["coins"]
+            print(self.coins)
             self.answer_has_been_read = False
 
         except Exception as e:
