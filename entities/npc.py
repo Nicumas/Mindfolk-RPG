@@ -87,7 +87,7 @@ class NPC(arcade.Sprite):
             print(f"[NPC] Получен ответ от NPC '{self.name}': {response}")
             self.text = response["answer"]
             self.coins = response["coins"]
-            print(self.coins)
+            print(f"[NPC] Получен ответ от NPC, монет: {self.coins}")
             self.answer_has_been_read = False
 
         except Exception as e:

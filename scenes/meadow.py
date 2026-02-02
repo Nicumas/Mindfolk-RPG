@@ -22,6 +22,9 @@ class Meadow:
         self.npc_list.append(
             NPC(500, 300, "villager")
         )
+        self.npc_list.append(
+            NPC(500, 400, "villager")
+        )
         #self.npc_list.append(
         #    NPC(500, 400, "Guard")
         #)
@@ -61,8 +64,7 @@ class Meadow:
                     break
 
         for npc in self.npc_list:
-            self.player.coins = npc.get_coins()
-            
+            self.player.coins += npc.get_coins()
             if keys.get(arcade.key.UP):
                 self.scroll_chat(-1)
                 print(1111111)
@@ -132,7 +134,7 @@ class Meadow:
             else:
                 arcade.draw_text(
                     "> " + self.input_text,
-                    30, 10, arcade.color.WHITE, FONT_SIZE
+                    30, 10, arcade.color.BLACK, FONT_SIZE
                 )
 
     def on_text(self, text):

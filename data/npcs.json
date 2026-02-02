@@ -1,91 +1,86 @@
 {
-  "guard": {
-    "name": "Guard",
-    "answer": "",
-    "action": "talk",
-    "coins": 0,
-    "emotion": "calm",
-    "trust": 40,
-    "aggression": 30,
-    "relationship": "neutral",
-    "memory_note": "Видит игрока впервые",
-    "next_state": "observe_player",
-    "player_position": null,
-    "npc_position": null,
-    "quest": {
-      "id": "guard_001",
-      "title": "Очистить ворота",
-      "goal": "Уничтожить бандитов у северного входа",
-      "reward_coins": 15
+    "guard": {
+        "name": "Guard",
+        "answer": "",
+        "action": "talk",
+        "coins": 0,
+        "emotion": "calm",
+        "trust": 40,
+        "aggression": 30,
+        "relationship": "neutral",
+        "memory_note": "Видит игрока впервые",
+        "next_state": "observe_player",
+        "player_position": null,
+        "npc_position": null,
+        "quest": {
+            "id": "guard_001",
+            "title": "Очистить ворота",
+            "goal": "Уничтожить бандитов у северного входа",
+            "reward_coins": 15
+        }
+    },
+    "merchant": {
+        "name": "Merchant",
+        "answer": "",
+        "action": "trade",
+        "coins": 0,
+        "emotion": "happy",
+        "trust": 70,
+        "aggression": 5,
+        "relationship": "friendly",
+        "memory_note": "Игрок ранее торговал",
+        "next_state": "trade_mode",
+        "player_position": null,
+        "npc_position": null,
+        "quest": null
+    },
+    "bandit": {
+        "trust": 0,
+        "next_state": "combat",
+        "emotion": "angry",
+        "answer": "",
+        "coins": 0,
+        "action": "attack",
+        "aggression": 100,
+        "relationship": "hostile",
+        "quest": null,
+        "memory_note": "Player attacked, demands money"
+    },
+    "villager": {
+        "trust": 75,
+        "next_state": "talk",
+        "emotion": "calm",
+        "answer": "",
+        "coins": 0,
+        "action": "talk",
+        "aggression": 0,
+        "relationship": "friendly",
+        "quest": {
+            "reward_coins": 35,
+            "goal": "Принеси 3 шкуры волка с Северного перевала",
+            "id": "qst_017",
+            "title": "Охота на волков"
+        },
+        "memory_note": "Игрок проявил интерес к судьбе мира, но Элиан сосредоточен на задании — волки стали слишком наглыми у перевала, пора привести дела в порядок."
+    },
+    "scientist": {
+        "name": "Scientist",
+        "answer": "",
+        "action": "give_quest",
+        "coins": 0,
+        "emotion": "happy",
+        "trust": 80,
+        "aggression": 0,
+        "relationship": "friendly",
+        "memory_note": "Игрок кажется надёжным",
+        "next_state": "wait_for_results",
+        "player_position": null,
+        "npc_position": null,
+        "quest": {
+            "id": "sci_002",
+            "title": "Потерянный модуль",
+            "goal": "Найти исследовательский модуль в руинах",
+            "reward_coins": 30
+        }
     }
-  },
-
-  "merchant": {
-    "name": "Merchant",
-    "answer": "",
-    "action": "trade",
-    "coins": 0,
-    "emotion": "happy",
-    "trust": 70,
-    "aggression": 5,
-    "relationship": "friendly",
-    "memory_note": "Игрок ранее торговал",
-    "next_state": "trade_mode",
-    "player_position": null,
-    "npc_position": null,
-    "quest": null
-  },
-
-  "bandit": {
-    "name": "Bandit",
-    "answer": "",
-    "action": "attack",
-    "coins": 0,
-    "emotion": "angry",
-    "trust": 0,
-    "aggression": 95,
-    "relationship": "hostile",
-    "memory_note": "Считает игрока лёгкой добычей",
-    "next_state": "combat",
-    "player_position": null,
-    "npc_position": null,
-    "quest": null
-  },
-
-  "villager": {
-    "name": "Villager",
-    "answer": "",
-    "action": "",
-    "coins": 3,
-    "emotion": "sad",
-    "trust": 60,
-    "aggression": 0,
-    "relationship": "friendly",
-    "memory_note": "Боится за свою деревню",
-    "next_state": "return_home",
-    "player_position": null,
-    "npc_position": null,
-    "quest": null
-  },
-
-  "scientist": {
-    "name": "Scientist",
-    "answer": "",
-    "action": "give_quest",
-    "coins": 0,
-    "emotion": "happy",
-    "trust": 80,
-    "aggression": 0,
-    "relationship": "friendly",
-    "memory_note": "Игрок кажется надёжным",
-    "next_state": "wait_for_results",
-    "player_position": null,
-    "npc_position": null,
-    "quest": {
-      "id": "sci_002",
-      "title": "Потерянный модуль",
-      "goal": "Найти исследовательский модуль в руинах",
-      "reward_coins": 30
-    }
-  }
 }

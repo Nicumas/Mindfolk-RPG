@@ -42,5 +42,12 @@ class DeepSeekClient:
         result = self.send_state(str(state))
         print(f"[DeepSeekClient] Ответ от сервера для NPC '{npc_name}': {result}")
         result = json.loads(result)
+        resultForSave = ""
+        resultForSave = result
+        answer = result["answer"]
+        resultForSave["answer"] = ""
+        print(f"[For save] Отправляемое состояние для {npc_name}': {resultForSave}")
         print(f"[DeepSeekClient] Получен ответ от NPC '{npc_name}': {result}")
+        jsonManager.update_json("data/npcs.json", npc_name, resultForSave)
+        result["answer"] = answer
         return result
