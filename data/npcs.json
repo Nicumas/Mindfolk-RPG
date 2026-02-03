@@ -1,23 +1,15 @@
 {
     "guard": {
-        "name": "Guard",
-        "answer": "",
-        "action": "talk",
-        "coins": 0,
-        "emotion": "calm",
         "trust": 40,
+        "next_state": "observe_player",
+        "emotion": "calm",
+        "answer": "",
+        "coins": 0,
+        "action": "talk",
         "aggression": 30,
         "relationship": "neutral",
-        "memory_note": "Видит игрока впервые",
-        "next_state": "observe_player",
-        "player_position": null,
-        "npc_position": null,
-        "quest": {
-            "id": "guard_001",
-            "title": "Очистить ворота",
-            "goal": "Уничтожить бандитов у северного входа",
-            "reward_coins": 15
-        }
+        "quest": null,
+        "memory_note": "Ты охраняешь деревню"
     },
     "merchant": {
         "name": "Merchant",
@@ -47,21 +39,16 @@
         "memory_note": "Player attacked, demands money"
     },
     "villager": {
-        "trust": 75,
-        "next_state": "talk",
-        "emotion": "calm",
         "answer": "",
-        "coins": 0,
         "action": "talk",
+        "coins": 0,
+        "emotion": "happy",
+        "quest": null,
+        "trust": 75,
         "aggression": 0,
         "relationship": "friendly",
-        "quest": {
-            "reward_coins": 35,
-            "goal": "Принеси 3 шкуры волка с Северного перевала",
-            "id": "qst_017",
-            "title": "Охота на волков"
-        },
-        "memory_note": "Игрок проявил интерес к судьбе мира, но Элиан сосредоточен на задании — волки стали слишком наглыми у перевала, пора привести дела в порядок."
+        "memory_note": "Игрок проявил интерес к простому общению. Я поддержал разговор, спросив о его планах на будущее и поделившись своими мыслями о садоводстве.",
+        "next_state": "chatting"
     },
     "scientist": {
         "name": "Scientist",

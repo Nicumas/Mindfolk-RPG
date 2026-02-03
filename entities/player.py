@@ -12,6 +12,10 @@ class Player(arcade.Sprite):
         self.speed = 200
 
         self.coins = 0
+        self.max_hp = 100
+        self.hp = self.max_hp
+        self.damage = 20
+        self.dead = False
 
         self.chatting = False
 
@@ -72,8 +76,13 @@ class Player(arcade.Sprite):
             (-10, 30),
         ]
 
+    def check_dead(self):
+        if self.hp == 0:
+            self.dead = True
 
     def update(self, dt, keys):
+        self.check_dead()
+
         if not self.chatting:
             dx = dy = 0
 
@@ -88,7 +97,6 @@ class Player(arcade.Sprite):
 
             self.change_x = dx
             self.change_y = dy
-
 
             self.update_texture(dx, dy)
         else:    
@@ -137,7 +145,13 @@ class Player(arcade.Sprite):
             self.scale = self.walk_forward_scale
             self.last_direction = "down"
 
-        #self.scale = self.walk_scale
-
     def get_position(self):
         return (self.center_x, self.center_y)
+
+    def take_damage(self, dmg):
+        self.hp -= dmg
+        if self.hp < 0:
+            self.hp = 0
+
+    def attack(self):
+        pass

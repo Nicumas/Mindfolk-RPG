@@ -6,6 +6,7 @@ from pathlib import Path
 
 
 from ai.deepseek_client import DeepSeekClient
+from ai.gemini_client import GeminiClient
 
 
 class NPC(arcade.Sprite):
@@ -14,6 +15,8 @@ class NPC(arcade.Sprite):
         x: float,
         y: float,
         name: str = "villager",
+        clientAI: str =  "GeminiClient()",
+        texture: str = "villager_npc.png",
         text: str = "*Нажмите E, чтобы поговорить",
         scale: float = 1.0
     ):
@@ -28,6 +31,7 @@ class NPC(arcade.Sprite):
 
         super().__init__()
         self.texture = texture
+        self.clientAI = clientAI
 
         self.scale = scale * 0.8
 
@@ -77,7 +81,9 @@ class NPC(arcade.Sprite):
 
     def _fetch_answer(self, player_pos):
         try:
-            client = DeepSeekClient()
+            #client = DeepSeekClient()
+            #client = GeminiClient()
+            client = eval(self.clientAI)
             response = client.get_npc_response(
                 npc_name=self.name,
                 player_pos=player_pos,
