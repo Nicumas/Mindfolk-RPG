@@ -40,15 +40,20 @@
     },
     "villager": {
         "answer": "",
-        "action": "talk",
-        "coins": 0,
+        "action": "give_quest",
+        "coins": 25,
         "emotion": "happy",
-        "quest": null,
-        "trust": 75,
+        "quest": {
+            "id": "garden_help_01",
+            "title": "Жаждущие розы",
+            "goal": "Принести ведро воды из колодца к розовым кустам на заднем дворе.",
+            "reward_coins": 15
+        },
+        "trust": 80,
         "aggression": 0,
         "relationship": "friendly",
-        "memory_note": "Игрок проявил интерес к простому общению. Я поддержал разговор, спросив о его планах на будущее и поделившись своими мыслями о садоводстве.",
-        "next_state": "chatting"
+        "memory_note": "Игрок неожиданно подарил мне деньги, что повысило уровень доверия. В ответ я предложил ему задание по уходу за садом.",
+        "next_state": "waiting_for_quest_acceptance"
     },
     "scientist": {
         "name": "Scientist",

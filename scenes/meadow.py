@@ -112,14 +112,22 @@ class Meadow:
     def draw_gui(self):
         arcade.draw_lbwh_rectangle_filled(
             600, 540,
-            200, 40,
+            200, 60,
             arcade.color.BLACK
         )
 
         arcade.draw_text(
             f"Монеты: {self.player.coins}",
-            650, 550,
+            640, 545,
             arcade.color.GOLD,
+            18,
+            bold=True
+        )
+
+        arcade.draw_text(
+            f"Здоровье: {self.player.hp}",
+            640, 575,
+            arcade.color.RED_DEVIL,
             18,
             bold=True
         )
