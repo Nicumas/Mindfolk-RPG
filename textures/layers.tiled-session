@@ -14,7 +14,13 @@
             "scaleInEditor": 1
         },
         "Layer 2.tsx": {
-            "dynamicWrapping": false
+            "dynamicWrapping": false,
+            "scaleInDock": 0.33,
+            "scaleInEditor": 1
+        },
+        "Layer 3.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         },
         "layer1.tmx": {
             "scale": 0.33,
@@ -28,19 +34,32 @@
             "dynamicWrapping": true,
             "scaleInDock": 1,
             "scaleInEditor": 1
+        },
+        "layer2.2_obj.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "layer2.3_obj.tsx": {
+            "scaleInDock": 0.33,
+            "scaleInEditor": 1
         }
     },
     "last.externalTilesetPath": "C:/Users/konst/Documents/GitHub/Mindfolk-RPG/textures",
     "last.imagePath": "C:/Users/konst/Documents/GitHub/Mindfolk-RPG/textures",
+    "map.height": 30,
     "map.lastUsedFormat": "tmx",
-    "map.tileHeight": 128,
-    "map.tileWidth": 128,
+    "map.tileHeight": 96,
+    "map.tileWidth": 96,
     "openFiles": [
         "Layer 1.tsx",
         "layer1.tmx"
     ],
     "project": "layers.tiled-project",
     "recentFiles": [
+        "Layer 3.tsx",
+        "layer2.3_obj.tsx",
+        "layer2.2_obj.tsx",
+        "Layer 2.tsx",
         "layer2.1_obj.tsx",
         "Layer 1.tsx",
         "layer1.tmx"
@@ -48,7 +67,7 @@
     "tileset.lastUsedFilter": "Файлы набора тайлов Tiled (*.tsx *.xml)",
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
-        "height": 143,
-        "width": 143
+        "height": 96,
+        "width": 96
     }
 }

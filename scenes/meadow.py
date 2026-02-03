@@ -1,21 +1,27 @@
 import arcade
 from entities.npc import NPC
-from entities.mob import Mob 
+from entities.mob import Mob
+from entities.player import Player
 import textwrap
 
 FONT_SIZE = 16
-MAX_LINES = 6  
+MAX_LINES = 6
+
 
 class Meadow:
-    def __init__(self, player):
+    def __init__(self, player, particles):
         self.player = player
+        self.particles = particles
         self.active_text = None
 
+        if not hasattr(self.player, "particles_list"):
+            self.player.particles_list = self.particles
+
         self.player_list = arcade.SpriteList()
-        self.player_list.append(player)
+        self.player_list.append(self.player)
 
         self.active_text_lines = []
-        self.chat_scroll = 0 
+        self.chat_scroll = 0
 
         self.npc_list = arcade.SpriteList()
         self.interacting_NPC = None
@@ -51,6 +57,8 @@ class Meadow:
         self.player.update(dt, keys)
         self.physics_engine.update()
 
+        self.particles.update(dt)
+
         if keys.get(arcade.key.UP):
             self.scroll_chat(-1)
 
@@ -60,7 +68,7 @@ class Meadow:
         if keys.get(arcade.key.ESCAPE):
             self.hide_chat()
             return
-        
+
         for mob in self.mob_list:
             mob.update_ai(dt, self.player, walls=self.collision_list)
 
@@ -93,12 +101,13 @@ class Meadow:
             if self.active_text_lines:
                 self.hide_chat()
 
-
     def draw_world(self):
         self.terra_list.draw()
         self.npc_list.draw()
-        self.player_list.draw()
         self.mob_list.draw()
+        self.particles.draw()
+        self.player_list.draw()
+
 
     def draw_gui(self):
         arcade.draw_lbwh_rectangle_filled(
@@ -118,7 +127,7 @@ class Meadow:
         if self.active_text_lines:
             arcade.draw_lrbt_rectangle_filled(
                 20, 780,
-                30, 120, 
+                30, 120,
                 arcade.color.BLACK
             )
             start_line = self.chat_scroll
@@ -157,7 +166,6 @@ class Meadow:
         chars_per_line = 70
         self.active_text_lines = textwrap.wrap(text, chars_per_line)
         self.chat_scroll = 0
-
 
     def scroll_chat(self, direction):
         if not self.active_text_lines:

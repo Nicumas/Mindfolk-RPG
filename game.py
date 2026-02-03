@@ -29,8 +29,11 @@ class Game(arcade.Window):
             shake_frequency=10.0,
         )
 
-        self.player = Player(400, 300)
-        self.scene = Meadow(self.player)
+        self.particles = arcade.SpriteList()
+
+        self.player = Player(400, 300, self.particles)
+
+        self.scene = Meadow(self.player, self.particles)
         self.world_width = self.scene.world_width
         self.world_height = self.scene.world_height
 
@@ -38,9 +41,7 @@ class Game(arcade.Window):
         self.game_music = arcade.load_sound("music/game_theme.ogg")
 
         self.music_player = None
-
         self.play_music(self.menu_music, volume=0.4)
-
 
     def on_update(self, dt):
         if self.state != "game":
@@ -104,7 +105,6 @@ class Game(arcade.Window):
             40,
             anchor_x="center",
         )
-
         arcade.draw_text(
             "ENTER — начать игру\n ESC — выход",
             SCREEN_WIDTH / 2,
@@ -118,25 +118,11 @@ class Game(arcade.Window):
     def play_music(self, sound, volume=0.5):
         if self.music_player:
             self.music_player.pause()
-
-        self.music_player = sound.play(
-            volume=volume,
-            loop=True
-        )
-
-    def play_music(self, sound, volume=0.5):
-        if self.music_player:
-            self.music_player.pause()
-
-        self.music_player = sound.play(
-            volume=volume,
-            loop=True
-        )
+        self.music_player = sound.play(volume=volume, loop=True)
 
     def on_text(self, text):
         if self.state != "game":
             return
-
         if self.player.chatting:
             self.scene.input_text += text
 
@@ -151,11 +137,9 @@ class Game(arcade.Window):
                 arcade.close_window()
             return
 
-
-        if self.player.chatting and self.scene.interacting_NPC.get_text():
+        if self.player.chatting and self.scene.interacting_NPC and self.scene.interacting_NPC.get_text():
             if key == arcade.key.BACKSPACE:
                 self.scene.input_text = self.scene.input_text[:-1]
-
             elif key == arcade.key.ENTER:
                 if self.scene.input_text.strip():
                     npc = self.scene.interacting_NPC
