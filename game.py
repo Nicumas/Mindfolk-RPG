@@ -29,19 +29,39 @@ class Game(arcade.Window):
             shake_frequency=10.0,
         )
 
+        self.mouse_x = 0
+        self.mouse_y = 0
+
+
+        self.menu_music = arcade.load_sound("music/menu_theme.ogg")
+        self.game_music = arcade.load_sound("music/game_theme.ogg")
+        self.music_player = None
+        self.play_music(self.menu_music, volume=0.4)
+
         self.particles = arcade.SpriteList()
-
         self.player = Player(400, 300, self.particles)
-
         self.scene = Meadow(self.player, self.particles)
         self.world_width = self.scene.world_width
         self.world_height = self.scene.world_height
 
-        self.menu_music = arcade.load_sound("music/menu_theme.ogg")
-        self.game_music = arcade.load_sound("music/game_theme.ogg")
+        self.dead_btn_w = 260
+        self.dead_btn_h = 60
+        self.dead_btn_x = SCREEN_WIDTH / 2 - self.dead_btn_w / 2
+        self.dead_btn_y = SCREEN_HEIGHT / 2 - 60
 
-        self.music_player = None
-        self.play_music(self.menu_music, volume=0.4)
+    def restart_game(self):
+        self.keys = {}
+
+        self.particles = arcade.SpriteList()
+        self.player = Player(400, 300, self.particles)
+        self.scene = Meadow(self.player, self.particles)
+
+        self.world_width = self.scene.world_width
+        self.world_height = self.scene.world_height
+
+        self.world_camera.position = (SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+        self.state = "game"
+        self.play_music(self.game_music, volume=0.5)
 
     def on_update(self, dt):
         if self.state != "game":
@@ -49,6 +69,10 @@ class Game(arcade.Window):
 
         self.scene.update(dt, self.keys)
         self.camera_shake.update(dt)
+
+        if getattr(self.player, "dead", False):
+            self.state = "dead"
+            return
 
         cam_x, cam_y = self.world_camera.position
 
@@ -81,6 +105,10 @@ class Game(arcade.Window):
 
         self.world_camera.position = (smooth_x, smooth_y)
 
+    def on_mouse_motion(self, x, y, dx, dy):
+        self.mouse_x = x
+        self.mouse_y = y
+
     def on_draw(self):
         self.clear()
 
@@ -95,6 +123,9 @@ class Game(arcade.Window):
 
         self.gui_camera.use()
         self.scene.draw_gui()
+
+        if self.state == "dead":
+            self.draw_death_screen()
 
     def draw_menu(self):
         arcade.draw_text(
@@ -137,6 +168,14 @@ class Game(arcade.Window):
                 arcade.close_window()
             return
 
+        if self.state == "dead":
+            if key in (arcade.key.R, arcade.key.ENTER):
+                self.restart_game()
+            elif key == arcade.key.ESCAPE:
+                self.state = "menu"
+                self.play_music(self.menu_music, volume=0.4)
+            return
+
         if self.player.chatting and self.scene.interacting_NPC and self.scene.interacting_NPC.get_text():
             if key == arcade.key.BACKSPACE:
                 self.scene.input_text = self.scene.input_text[:-1]
@@ -151,3 +190,65 @@ class Game(arcade.Window):
 
     def on_key_release(self, key, modifiers):
         self.keys[key] = False
+
+    def on_mouse_press(self, x, y, button, modifiers):
+        if self.state != "dead":
+            return
+        if button != arcade.MOUSE_BUTTON_LEFT:
+            return
+
+        if (self.dead_btn_x <= x <= self.dead_btn_x + self.dead_btn_w and
+            self.dead_btn_y <= y <= self.dead_btn_y + self.dead_btn_h):
+            self.restart_game()
+
+    def draw_death_screen(self):
+        arcade.draw_lrbt_rectangle_filled(
+            0, SCREEN_WIDTH,
+            0, SCREEN_HEIGHT,
+            (0, 0, 0, 180)
+        )
+
+        arcade.draw_text(
+            "YOU DIED",
+            SCREEN_WIDTH / 2,
+            SCREEN_HEIGHT / 2 + 90,
+            arcade.color.WHITE,
+            48,
+            anchor_x="center"
+        )
+
+        arcade.draw_text(
+            "Нажми R или ENTER чтобы перезапустить",
+            SCREEN_WIDTH / 2,
+            SCREEN_HEIGHT / 2 + 35,
+            arcade.color.LIGHT_GRAY,
+            16,
+            anchor_x="center"
+        )
+
+        mx, my = self.mouse_x, self.mouse_y
+        hovered = (self.dead_btn_x <= mx <= self.dead_btn_x + self.dead_btn_w and
+                self.dead_btn_y <= my <= self.dead_btn_y + self.dead_btn_h)
+
+        color = arcade.color.DARK_RED if hovered else arcade.color.BLACK
+
+        arcade.draw_lbwh_rectangle_filled(
+            self.dead_btn_x, self.dead_btn_y,
+            self.dead_btn_w, self.dead_btn_h,
+            color
+        )
+        arcade.draw_lbwh_rectangle_outline(
+            self.dead_btn_x, self.dead_btn_y,
+            self.dead_btn_w, self.dead_btn_h,
+            arcade.color.WHITE, 2
+        )
+        arcade.draw_text(
+            "RESTART",
+            SCREEN_WIDTH / 2,
+            self.dead_btn_y + self.dead_btn_h / 2,
+            arcade.color.WHITE,
+            20,
+            anchor_x="center",
+            anchor_y="center",
+            bold=True
+        )

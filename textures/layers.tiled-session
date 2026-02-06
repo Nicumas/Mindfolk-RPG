@@ -3,22 +3,26 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "layer1.tmx",
+    "activeFile": "layer2.tmx",
     "expandedProjectPaths": [
         "."
     ],
     "file.lastUsedOpenFilter": "Все файлы (*)",
     "fileStates": {
         "Layer 1.tsx": {
-            "scaleInDock": 1,
+            "scaleInDock": 0.25,
             "scaleInEditor": 1
         },
         "Layer 2.tsx": {
             "dynamicWrapping": false,
-            "scaleInDock": 0.33,
+            "scaleInDock": 0.75,
             "scaleInEditor": 1
         },
         "Layer 3.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Location 2 v2.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
@@ -27,11 +31,11 @@
             "scaleInEditor": 1
         },
         "layer1.tmx": {
-            "scale": 0.33,
+            "scale": 0.25,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 1403.0303030303032,
-                "y": 1271.2121212121212
+                "x": 1696,
+                "y": 1258
             }
         },
         "layer2.1_obj.tsx": {
@@ -46,33 +50,47 @@
         "layer2.3_obj.tsx": {
             "scaleInDock": 0.33,
             "scaleInEditor": 1
+        },
+        "layer2.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 250.66666666666666,
+                "y": 94.99999999999997
+            }
         }
     },
     "last.externalTilesetPath": "C:/Users/konst/Documents/GitHub/Mindfolk-RPG/textures",
     "last.imagePath": "C:/Users/konst/Documents/GitHub/Mindfolk-RPG/textures",
-    "map.height": 30,
+    "map.fixedSize": false,
+    "map.height": 34,
     "map.lastUsedFormat": "tmx",
-    "map.tileHeight": 96,
-    "map.tileWidth": 96,
+    "map.tileHeight": 64,
+    "map.tileWidth": 64,
+    "map.width": 34,
     "openFiles": [
         "Layer 1.tsx",
-        "layer1.tmx"
+        "layer1.tmx",
+        "Layer 2.tsx",
+        "layer2.tmx"
     ],
     "project": "layers.tiled-project",
     "recentFiles": [
+        "Layer 1.tsx",
+        "layer1.tmx",
+        "Layer 2.tsx",
+        "layer2.tmx",
         "Location 2.tsx",
+        "Location 2 v2.tsx",
         "Layer 3.tsx",
         "layer2.3_obj.tsx",
         "layer2.2_obj.tsx",
-        "Layer 2.tsx",
-        "layer2.1_obj.tsx",
-        "Layer 1.tsx",
-        "layer1.tmx"
+        "layer2.1_obj.tsx"
     ],
     "tileset.lastUsedFilter": "Файлы набора тайлов Tiled (*.tsx *.xml)",
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
-        "height": 100,
-        "width": 100
+        "height": 64,
+        "width": 64
     }
 }

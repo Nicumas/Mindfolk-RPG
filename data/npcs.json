@@ -41,19 +41,19 @@
     "villager": {
         "answer": "",
         "action": "give_quest",
-        "coins": 25,
-        "emotion": "happy",
+        "coins": 0,
+        "emotion": "calm",
         "quest": {
-            "id": "garden_help_01",
-            "title": "Жаждущие розы",
-            "goal": "Принести ведро воды из колодца к розовым кустам на заднем дворе.",
-            "reward_coins": 15
+            "id": "dementia_cure_1",
+            "title": "Туман в голове",
+            "goal": "Собрать 3 сонных корня на ближайшем болоте",
+            "reward_coins": 40
         },
-        "trust": 80,
+        "trust": 50,
         "aggression": 0,
-        "relationship": "friendly",
-        "memory_note": "Игрок неожиданно подарил мне деньги, что повысило уровень доверия. В ответ я предложил ему задание по уходу за садом.",
-        "next_state": "waiting_for_quest_acceptance"
+        "relationship": "neutral",
+        "memory_note": "Игрок явно дезориентирован. Я предложил ему помощь в обмен на ингредиенты для зелья.",
+        "next_state": "quest_offered"
     },
     "scientist": {
         "name": "Scientist",
