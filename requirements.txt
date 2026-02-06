@@ -1,2 +1,4 @@
 arcade>=2.6.17
 openai>=1.0.0
+requests>=2.32.5
+pyinstaller>=6.18.0

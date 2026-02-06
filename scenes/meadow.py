@@ -2,6 +2,7 @@ import arcade
 from entities.npc import NPC
 from entities.mob import Mob
 from entities.player import Player
+from utils.path import resource_path
 import textwrap
 
 FONT_SIZE = 16
@@ -30,7 +31,7 @@ class Meadow:
             NPC(500, 300, "villager", clientAI="GeminiClient()")
         )
         self.npc_list.append(
-            NPC(500, 400, "guard", clientAI="DeepSeekClient()")
+            NPC(500, 400, "guard", clientAI="GeminiClient()")
         )
 
         self.mob_list = arcade.SpriteList()
@@ -40,7 +41,7 @@ class Meadow:
 
     def setup(self):
         TILE_SCALING = 0.4
-        tile_map = arcade.load_tilemap("textures/layer1.tmx", scaling=TILE_SCALING)
+        tile_map = arcade.load_tilemap(resource_path("textures/layer1.tmx"), scaling=TILE_SCALING)
 
         self.world_width = int(tile_map.width * tile_map.tile_width * TILE_SCALING)
         self.world_height = int(tile_map.height * tile_map.tile_height * TILE_SCALING)

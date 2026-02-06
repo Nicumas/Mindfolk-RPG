@@ -40,20 +40,20 @@
     },
     "villager": {
         "answer": "",
-        "action": "give_quest",
+        "action": "talk",
         "coins": 0,
         "emotion": "calm",
         "quest": {
-            "id": "dementia_cure_1",
-            "title": "Туман в голове",
-            "goal": "Собрать 3 сонных корня на ближайшем болоте",
-            "reward_coins": 40
+            "id": "math_riddle_1",
+            "title": "Испытание разума",
+            "goal": "Правильно ответить на математическую загадку NPC",
+            "reward_coins": 20
         },
         "trust": 50,
-        "aggression": 0,
+        "aggression": 10,
         "relationship": "neutral",
-        "memory_note": "Игрок явно дезориентирован. Я предложил ему помощь в обмен на ингредиенты для зелья.",
-        "next_state": "quest_offered"
+        "memory_note": "Я встретил игрока и предложил ему решить математическую задачу (2 * 2 * 2) для проверки интеллекта.",
+        "next_state": "awaiting_riddle_answer"
     },
     "scientist": {
         "name": "Scientist",

@@ -1,9 +1,11 @@
 import arcade
 import math
 
+from utils.path import resource_path
+
 class Mob(arcade.Sprite):
-    def __init__(self, x, y, texture_path, scale=1.0):
-        super().__init__(texture_path, scale=scale)
+    def __init__(self, x, y, texture_path, scale=1):
+        super().__init__(resource_path(texture_path), scale=scale)
         self.center_x = x
         self.center_y = y
 

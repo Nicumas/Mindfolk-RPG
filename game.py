@@ -1,6 +1,7 @@
 import arcade
 from entities.player import Player
 from scenes.meadow import Meadow
+from utils.path import resource_path
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -32,9 +33,9 @@ class Game(arcade.Window):
         self.mouse_x = 0
         self.mouse_y = 0
 
+        self.menu_music = arcade.load_sound(resource_path("music/menu_theme.wav"))
+        self.game_music = arcade.load_sound(resource_path("music/game_theme.wav"))
 
-        self.menu_music = arcade.load_sound("music/menu_theme.ogg")
-        self.game_music = arcade.load_sound("music/game_theme.ogg")
         self.music_player = None
         self.play_music(self.menu_music, volume=0.4)
 
